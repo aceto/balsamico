@@ -10,7 +10,7 @@ import sys
 
 def str_to_hilbert(string, cursor=None):
     p = ceil(log2(len(string)**.5))
-    d = defaultdict(lambda:defaultdict(str))
+    d = defaultdict(lambda:defaultdict(lambda: ' '))
     for i, c in enumerate(string):
         y, x = hilbert.coordinates_from_distance(i, p, N=2)
         if cursor is not None and i == cursor:
@@ -37,7 +37,7 @@ def hilbert_to_str(filename):
                 sling.append(" ")
         return list("".join(sling).rstrip())
     except FileNotFoundError:
-        return ""
+        return []
 
 
 def keystroke(key):
@@ -71,6 +71,7 @@ string = []
 cursor = 0
 if len(sys.argv) > 1:
     string = hilbert_to_str(sys.argv[1])
+    cursor = len(string)
     if len(string) > 1:
         text.set_text(str_to_hilbert(string))
     elif len(string) == 1:
