@@ -91,7 +91,10 @@ try:
         fn = default
     with open(fn, "w") as f:
         if len(string) > 1:
-            f.write(str_to_hilbert(string))
+            lines = str_to_hilbert(string).split("\n")
+            for line in lines:
+                f.write(line.rstrip())
+                f.write("\n")
         else:
             f.write(string)
     print("Saved.")
